@@ -5,8 +5,7 @@ public class Dasani {
     public static void main(String[] args) {
         greetUser(); // Display greeting message
 
-        // Store list array
-        String[] List = new String[100];
+        Task[] tasks = new Task[100];
 
         // Scanner to read user input
         Scanner input = new Scanner(System.in);
@@ -25,17 +24,36 @@ public class Dasani {
                 // Print stored list to user
                 printLine();
                 System.out.println(" 🔵 [Dasani]: The list is:");
-                for (int i = 0; List[i] != null; i += 1) {
-                    System.out.println(i + 1 + ". " + List[i]);
+                for (int i = 0; tasks[i] != null; i += 1) {
+                    System.out.println((i + 1) + ". " + tasks[i].toString());
                 }
                 printLine();
-            } else {
+            }
+            else if (command.startsWith("mark")) {
+                int taskNumber = Integer.parseInt(command.substring(5)) - 1;
+                if (tasks[taskNumber] != null) {
+                    tasks[taskNumber].markAsDone();
+                    printLine();
+                    System.out.println(" 🔵 [Dasani]: Okay! Marked task: '" + tasks[taskNumber].toString() + "' as done. ✅");
+                    printLine();
+                }
+            }
+            else if (command.startsWith("unmark")) {
+                int taskNumber = Integer.parseInt(command.substring(7)) - 1;
+                if (tasks[taskNumber] != null) {
+                    tasks[taskNumber].markAsNotDone();
+                    printLine();
+                    System.out.println(" 🔵 [Dasani]: Okay! Marked task: '" + tasks[taskNumber].toString() + "' as not done. 🔄");
+                    printLine();
+                }
+            }
+            else {
                 // Store user input
                 int i = 0;
-                while (List[i] != null) {
+                while (tasks[i] != null) {
                     i += 1;
                 }
-                List[i] = command;
+                tasks[i] = new Task(command);
                 printLine();
                 System.out.println(" 🔵 [Dasani]: Added: \"" + command + "\" 💬");
                 printLine();
