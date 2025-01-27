@@ -8,6 +8,9 @@ public class Task {
         this.isDone = false; // default status: not done
     }
 
+    // Return status
+    public boolean isMark() { return this.isDone; }
+
     // Mark task as done
     public void markAsDone() {
         this.isDone = true;

@@ -32,18 +32,42 @@ public class Dasani {
             else if (command.startsWith("mark")) {
                 int taskNumber = Integer.parseInt(command.substring(5)) - 1;
                 if (tasks[taskNumber] != null) {
-                    tasks[taskNumber].markAsDone();
+                    if (tasks[taskNumber].isMark()) {
+                        printLine();
+                        System.out.println(" 🔵 [Dasani]: Task: '" + (taskNumber + 1) + ". " + tasks[taskNumber].toString() + "' is already done. ✅");
+                        printLine();
+                    }
+                    else {
+                        tasks[taskNumber].markAsDone();
+                        printLine();
+                        System.out.println(" 🔵 [Dasani]: Okay! Marked task: '" + (taskNumber + 1) + ". " + tasks[taskNumber].toString() + "' as done. ✅");
+                        printLine();
+                    }
+                }
+                else {
                     printLine();
-                    System.out.println(" 🔵 [Dasani]: Okay! Marked task: '" + tasks[taskNumber].toString() + "' as done. ✅");
+                    System.out.println(" 🔵 [Dasani]: Task does not exist. ❌");
                     printLine();
                 }
             }
             else if (command.startsWith("unmark")) {
                 int taskNumber = Integer.parseInt(command.substring(7)) - 1;
                 if (tasks[taskNumber] != null) {
-                    tasks[taskNumber].markAsNotDone();
+                    if (!tasks[taskNumber].isMark()) {
+                        printLine();
+                        System.out.println(" 🔵 [Dasani]: Task: '" + (taskNumber + 1) + ". " + tasks[taskNumber].toString() + "' is already not done. 🔄");
+                        printLine();
+                    }
+                    else {
+                        tasks[taskNumber].markAsNotDone();
+                        printLine();
+                        System.out.println(" 🔵 [Dasani]: Okay! Marked task: '" + (taskNumber + 1) + ". " + tasks[taskNumber].toString() + "' as not done. 🔄");
+                        printLine();
+                    }
+                }
+                else {
                     printLine();
-                    System.out.println(" 🔵 [Dasani]: Okay! Marked task: '" + tasks[taskNumber].toString() + "' as not done. 🔄");
+                    System.out.println(" 🔵 [Dasani]: Task does not exist. ❌");
                     printLine();
                 }
             }
