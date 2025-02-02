@@ -3,22 +3,26 @@ public class TaskManager {
     private Task[] tasks = new Task[MAX_TASKS];
     private int taskCount = 0;
 
-    public void addTask(String description) {
+    public void addTask(Task task) {
         if (taskCount >= MAX_TASKS) {
             System.out.println(" 🔵 [Dasani]: Task list is full. ❌");
             return;
         }
-        tasks[taskCount++] = new Task(description);
+        tasks[taskCount++] = task;
         Dasani.printLine();
-        System.out.println(" 🔵 [Dasani]: Added: \"" + description + "\" 💬");
+        System.out.println(" 🔵 [Dasani]: Added: \"" + task + "\" 💬");
         Dasani.printLine();
     }
 
     public void displayTasks() {
         Dasani.printLine();
-        System.out.println(" 🔵 [Dasani]: The list is:");
-        for (int i = 0; i < taskCount; i++) {
-            System.out.println((i + 1) + ". " + tasks[i]);
+        if (taskCount == 0) {
+            System.out.println(" 🔵 [Dasani]: Your task list is empty. Add some task! ❌");
+        } else {
+            System.out.println(" 🔵 [Dasani]: The list is:");
+            for (int i = 0; i < taskCount; i++) {
+                System.out.println((i + 1) + ". " + tasks[i]);
+            }
         }
         Dasani.printLine();
     }

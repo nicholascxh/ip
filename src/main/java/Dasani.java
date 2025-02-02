@@ -22,8 +22,17 @@ public class Dasani {
                 taskManager.markTask(command, true);
             } else if (command.startsWith("unmark")) {
                 taskManager.markTask(command, false);
+            } else if (command.startsWith("todo")) {
+                taskManager.addTask(new Todo(command.substring(5).trim()));
+            } else if (command.startsWith("deadline")) {
+                String[] parts = command.substring(9).split("/by", 2);
+                taskManager.addTask(new Deadline(parts[0].trim(), parts[1].trim()));
+            } else if (command.startsWith("event")) {
+                String[] parts = command.substring(6).split("/from", 2);
+                String[] parts2 = parts[1].split("/to", 2);
+                taskManager.addTask(new Event(parts[0].trim(), parts2[0].trim(), parts2[1].trim()));
             } else {
-                taskManager.addTask(command);
+                System.out.println(" 🔵 [Dasani]: Invalid command. Please try again.");
             }
         }
         input.close();
