@@ -1,32 +1,29 @@
 public class Task {
-    protected String description;
-    protected boolean isDone;
+    private String description;
+    private boolean isDone;
 
-    // Constructor
     public Task(String description) {
         this.description = description;
-        this.isDone = false; // default status: not done
+        this.isDone = false;
     }
 
-    // Return status
-    public boolean isMark() { return this.isDone; }
+    public boolean isDone() {
+        return this.isDone;
+    }
 
-    // Mark task as done
     public void markAsDone() {
         this.isDone = true;
     }
 
-    // Mark task as not done
     public void markAsNotDone() {
         this.isDone = false;
     }
 
-    // Get status icon for display
-    public String getStatusIcon() {
-        return (isDone ? "X" : " "); // mark done task with X
+    private String getStatusIcon() {
+        return (isDone ? "X" : " ");
     }
 
-    // Display task with status
+    @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + description;
     }
