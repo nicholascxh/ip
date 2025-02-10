@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Dasani {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DasaniException {
         greetUser();
 
         TaskManager taskManager = new TaskManager();
@@ -23,16 +23,32 @@ public class Dasani {
                 input.close();
                 return;
 
+            case "help":
+                printHelpMessage();
+                break;
+
             case "list":
                 taskManager.displayTasks();
                 break;
 
             case "mark":
-                taskManager.markTask(command, true);
+                try {
+                    taskManager.markTask(description, true);
+                } catch (DasaniException e) {
+                    Dasani.printLine();
+                    System.out.println(e.getMessage());
+                    Dasani.printLine();
+                }
                 break;
 
             case "unmark":
-                taskManager.markTask(command, false);
+                try {
+                    taskManager.markTask(description, false);
+                } catch (DasaniException e) {
+                    Dasani.printLine();
+                    System.out.println(e.getMessage());
+                    Dasani.printLine();
+                }
                 break;
 
             case "todo":
@@ -63,10 +79,23 @@ public class Dasani {
                 break;
 
             default:
-                System.out.println(" 🔵 [Dasani]: Invalid command. Please try again.");
+                System.out.println(" 🔵 [Dasani]: Invalid command. Type \"help\" to see the list of commands.");
                 break;
             }
         }
+    }
+
+    private static void printHelpMessage() {
+        printLine();
+        System.out.println(" 🌊 Not sure what to do? Dont worry! Here are the list of available commands.");
+        System.out.println("\"list\" - List all current tasks.");
+        System.out.println("\"mark\" - Mark task description.");
+        System.out.println("\"unmark\" - Unmark task description.");
+        System.out.println("\"todo\" - Create a todo task.");
+        System.out.println("\"deadline\" - Create a deadline task. E.g Deadline <Task> /by <time>");
+        System.out.println("\"event\" - Create an event task. E.g Event <Task> /from <start> /to <end>");
+        System.out.println("\"bye\" - End this conversation.");
+        printLine();
     }
 
     private static void greetUser() {
