@@ -1,3 +1,7 @@
+package dasani.task.type;
+
+import dasani.task.Task;
+
 public class Deadline extends Task {
     private final String by;
 

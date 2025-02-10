@@ -1,3 +1,8 @@
+package dasani.task;
+
+import dasani.Dasani;
+import dasani.exception.DasaniException;
+
 public class TaskManager {
     private static final int MAX_TASKS = 100;
     private final Task[] tasks = new Task[MAX_TASKS];
