@@ -13,29 +13,60 @@ public class Dasani {
             System.out.print(" You: ");
             command = input.nextLine().trim();
 
-            if (command.equalsIgnoreCase("bye")) {
-                farewellMessage();
-                break;
-            } else if (command.equalsIgnoreCase("list")) {
+            String[] words = command.split(" ", 2);
+            String keyword = words[0].toLowerCase();
+            String description = words.length > 1 ? words[1] : "";
+
+            switch (keyword) {
+            case "bye":
+                printFarewellMessage();
+                input.close();
+                return;
+
+            case "list":
                 taskManager.displayTasks();
-            } else if (command.startsWith("mark")) {
+                break;
+
+            case "mark":
                 taskManager.markTask(command, true);
-            } else if (command.startsWith("unmark")) {
+                break;
+
+            case "unmark":
                 taskManager.markTask(command, false);
-            } else if (command.startsWith("todo")) {
-                taskManager.addTask(new Todo(command.substring(5).trim()));
-            } else if (command.startsWith("deadline")) {
-                String[] parts = command.substring(9).split("/by", 2);
-                taskManager.addTask(new Deadline(parts[0].trim(), parts[1].trim()));
-            } else if (command.startsWith("event")) {
-                String[] parts = command.substring(6).split("/from", 2);
-                String[] parts2 = parts[1].split("/to", 2);
-                taskManager.addTask(new Event(parts[0].trim(), parts2[0].trim(), parts2[1].trim()));
-            } else {
+                break;
+
+            case "todo":
+                if (!description.isEmpty()) {
+                    taskManager.addTask(new Todo(description.trim()));
+                } else {
+                    System.out.println(" 🔵 [Dasani]: Todo description cannot be empty.");
+                }
+                break;
+
+            case "deadline":
+                try {
+                    String[] splitDeadline = description.split("/by", 2);
+                    taskManager.addTask(new Deadline(splitDeadline[0].trim(), splitDeadline[1].trim()));
+                } catch (Exception e) {
+                    System.out.println(" 🔵 [Dasani]: Invalid deadline format. Use: deadline <task> /by <time>");
+                }
+                break;
+
+            case "event":
+                try {
+                    String[] splitEvent = description.split("/from", 2);
+                    String[] eventPeriod = splitEvent[1].split("/to", 2);
+                    taskManager.addTask(new Event(splitEvent[0].trim(), eventPeriod[0].trim(), eventPeriod[1].trim()));
+                } catch (Exception e) {
+                    System.out.println(" 🔵 [Dasani]: Invalid event format. Use: event <task> /from <start> /to <end>");
+                }
+                break;
+
+            default:
                 System.out.println(" 🔵 [Dasani]: Invalid command. Please try again.");
+                break;
             }
         }
-        input.close();
     }
 
     private static void greetUser() {
@@ -45,7 +76,7 @@ public class Dasani {
         printLine();
     }
 
-    private static void farewellMessage() {
+    private static void printFarewellMessage() {
         printLine();
         System.out.println(" 🔵 [Dasani]: Bye! Hope to see you again soon! 🌈");
         printLine();
