@@ -1,3 +1,11 @@
+package dasani;
+
+import dasani.exception.DasaniException;
+import dasani.task.type.Deadline;
+import dasani.task.type.Event;
+import dasani.task.TaskManager;
+import dasani.task.type.Todo;
+
 import java.util.Scanner;
 
 public class Dasani {
