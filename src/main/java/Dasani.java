@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Dasani {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws DasaniException {
         greetUser();
 
         TaskManager taskManager = new TaskManager();
@@ -32,11 +32,23 @@ public class Dasani {
                 break;
 
             case "mark":
-                taskManager.markTask(command, true);
+                try {
+                    taskManager.markTask(description, true);
+                } catch (DasaniException e) {
+                    Dasani.printLine();
+                    System.out.println(e.getMessage());
+                    Dasani.printLine();
+                }
                 break;
 
             case "unmark":
-                taskManager.markTask(command, false);
+                try {
+                    taskManager.markTask(description, false);
+                } catch (DasaniException e) {
+                    Dasani.printLine();
+                    System.out.println(e.getMessage());
+                    Dasani.printLine();
+                }
                 break;
 
             case "todo":

@@ -1,6 +1,6 @@
 public class TaskManager {
-    private static int MAX_TASKS = 100;
-    private Task[] tasks = new Task[MAX_TASKS];
+    private static final int MAX_TASKS = 100;
+    private final Task[] tasks = new Task[MAX_TASKS];
     private int taskCount = 0;
 
     public void addTask(Task task) {
@@ -27,38 +27,45 @@ public class TaskManager {
         Dasani.printLine();
     }
 
-    public void markTask(String command, boolean markAsDone) {
+    public void markTask(String command, boolean markAsDone) throws DasaniException {
         try {
-            int taskNumber = Integer.parseInt(command.replaceAll("[^0-9]", "")) - 1;
-            if (taskNumber < 0 || taskNumber >= taskCount || tasks[taskNumber] == null) {
-                throw new NumberFormatException();
+            if (command.isEmpty()) {
+                throw new DasaniException(" 🔵 [Dasani]: Please provide a task number after 'mark' ❌");
+            }
+
+            int taskNumber = Integer.parseInt(command);
+
+            if (taskNumber <= 0 || taskNumber > MAX_TASKS) {
+                throw new DasaniException(" 🔵 [Dasani]: Task number needs to be between 1 and 100 ❌");
+            }
+
+            if (tasks[taskNumber - 1] == null) {
+                throw new DasaniException(" 🔵 [Dasani]: Task number " + taskNumber + " does not exist ❌");
             }
 
             if (markAsDone) {
-                if (tasks[taskNumber].isDone()) {
+                if (tasks[taskNumber - 1].isDone()) {
                     displayTaskStatus(taskNumber, "already done", "✅");
                 } else {
-                    tasks[taskNumber].markAsDone();
+                    tasks[taskNumber - 1].markAsDone();
                     displayTaskStatus(taskNumber, "marked as done", "✅");
                 }
             } else {
-                if (!tasks[taskNumber].isDone()) {
+                if (!tasks[taskNumber - 1].isDone()) {
                     displayTaskStatus(taskNumber, "already not done", "🔄");
                 } else {
-                    tasks[taskNumber].markAsNotDone();
+                    tasks[taskNumber - 1].markAsNotDone();
                     displayTaskStatus(taskNumber, "marked as not done", "🔄");
                 }
             }
         } catch (NumberFormatException e) {
-            Dasani.printLine();
-            System.out.println(" 🔵 [Dasani]: Invalid task number. ❌");
-            Dasani.printLine();
+            System.out.println(" 🔵 [Dasani]: Please enter a valid task number ❌");
         }
     }
 
     private void displayTaskStatus(int taskNumber, String status, String emoji) {
         Dasani.printLine();
-        System.out.println(" 🔵 [Dasani]: Task: '" + (taskNumber + 1) + ". " + tasks[taskNumber] + "' is " + status + ". " + emoji);
+        System.out.println(" 🔵 [Dasani]: Task: '" + taskNumber + ". " + tasks[taskNumber - 1] + "' is " + status + ". " + emoji);
         Dasani.printLine();
     }
 }
