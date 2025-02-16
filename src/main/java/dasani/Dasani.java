@@ -86,6 +86,11 @@ public class Dasani {
                 }
                 break;
 
+            case "save":
+                taskManager.saveTasks();
+                System.out.println(" 🔵 [Dasani]: Task list saved! ✅");
+                break;
+
             default:
                 System.out.println(" 🔵 [Dasani]: Invalid command. Type \"help\" to see the list of commands.");
                 break;
