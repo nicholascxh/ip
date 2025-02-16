@@ -19,6 +19,39 @@ public class TaskManager {
         Dasani.printLine();
     }
 
+    public void deleteTask(String command) throws DasaniException {
+        try {
+            if (command.isEmpty()) {
+                throw new DasaniException(" 🔵 [Dasani]: Please provide a task number after 'delete' ❌");
+            }
+
+            int taskNumber = Integer.parseInt(command);
+
+            if (taskNumber <= 0 || taskNumber > MAX_TASKS) {
+                throw new DasaniException(" 🔵 [Dasani]: Task number needs to be between 1 and 100 ❌");
+            }
+
+            if (tasks[taskNumber - 1] == null) {
+                throw new DasaniException(" 🔵 [Dasani]: Task number " + taskNumber + " does not exist ❌");
+            }
+
+            Dasani.printLine();
+            System.out.println(" 🔵 [Dasani]: Deleted: \"" + tasks[taskNumber - 1] + "\" 💬");
+            Dasani.printLine();
+
+            for (int i = taskNumber - 1; i < taskCount - 1; i += 1) {
+                tasks[i] = tasks[i + 1];
+            }
+            tasks[taskCount - 1] = null;
+            taskCount -= 1;
+
+        } catch (NumberFormatException e) {
+            System.out.println(" 🔵 [Dasani]: Please enter a valid task number ❌");
+        }
+
+
+    }
+
     public void displayTasks() {
         Dasani.printLine();
         if (taskCount == 0) {
