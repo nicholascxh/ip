@@ -3,30 +3,51 @@ package dasani.task;
 import dasani.Dasani;
 import dasani.exception.DasaniException;
 
+import java.util.ArrayList;
+
 public class TaskManager {
-    private static final int MAX_TASKS = 100;
-    private final Task[] tasks = new Task[MAX_TASKS];
-    private int taskCount = 0;
+
+    private final ArrayList<Task> tasks = new ArrayList<>();
 
     public void addTask(Task task) {
-        if (taskCount >= MAX_TASKS) {
-            System.out.println(" 🔵 [Dasani]: Task list is full. ❌");
-            return;
-        }
-        tasks[taskCount++] = task;
+        tasks.add(task);
         Dasani.printLine();
         System.out.println(" 🔵 [Dasani]: Added: \"" + task + "\" 💬");
         Dasani.printLine();
     }
 
+    public void deleteTask(String command) throws DasaniException {
+        try {
+            if (command.isEmpty()) {
+                throw new DasaniException(" 🔵 [Dasani]: Please provide a task number after 'delete' ❌");
+            }
+
+            int taskNumber = Integer.parseInt(command);
+
+            if (taskNumber <= 0 || taskNumber > tasks.size()) {
+                throw new DasaniException(" 🔵 [Dasani]: Task number needs to be between 1 and " + tasks.size() + " ❌");
+            }
+
+            Task removedTask = tasks.remove(taskNumber - 1);
+            Dasani.printLine();
+            System.out.println(" 🔵 [Dasani]: Deleted: \"" + removedTask + "\" 💬");
+            Dasani.printLine();
+
+        } catch (NumberFormatException e) {
+            System.out.println(" 🔵 [Dasani]: Please enter a valid task number ❌");
+        }
+
+
+    }
+
     public void displayTasks() {
         Dasani.printLine();
-        if (taskCount == 0) {
+        if (tasks.isEmpty()) {
             System.out.println(" 🔵 [Dasani]: Your task list is empty. Add some task! ❌");
         } else {
             System.out.println(" 🔵 [Dasani]: The list is:");
-            for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+            for (int i = 0; i < tasks.size(); i++) {
+                System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
         Dasani.printLine();
@@ -40,26 +61,22 @@ public class TaskManager {
 
             int taskNumber = Integer.parseInt(command);
 
-            if (taskNumber <= 0 || taskNumber > MAX_TASKS) {
-                throw new DasaniException(" 🔵 [Dasani]: Task number needs to be between 1 and 100 ❌");
-            }
-
-            if (tasks[taskNumber - 1] == null) {
-                throw new DasaniException(" 🔵 [Dasani]: Task number " + taskNumber + " does not exist ❌");
+            if (taskNumber <= 0 || taskNumber > tasks.size()) {
+                throw new DasaniException(" 🔵 [Dasani]: Task number needs to be between 1 and " + tasks.size() + " ❌");
             }
 
             if (markAsDone) {
-                if (tasks[taskNumber - 1].isDone()) {
+                if (tasks.get(taskNumber - 1).isDone()) {
                     displayTaskStatus(taskNumber, "already done", "✅");
                 } else {
-                    tasks[taskNumber - 1].markAsDone();
+                    tasks.get(taskNumber - 1).markAsDone();
                     displayTaskStatus(taskNumber, "marked as done", "✅");
                 }
             } else {
-                if (!tasks[taskNumber - 1].isDone()) {
+                if (!tasks.get(taskNumber - 1).isDone()) {
                     displayTaskStatus(taskNumber, "already not done", "🔄");
                 } else {
-                    tasks[taskNumber - 1].markAsNotDone();
+                    tasks.get(taskNumber - 1).markAsNotDone();
                     displayTaskStatus(taskNumber, "marked as not done", "🔄");
                 }
             }
@@ -70,7 +87,7 @@ public class TaskManager {
 
     private void displayTaskStatus(int taskNumber, String status, String emoji) {
         Dasani.printLine();
-        System.out.println(" 🔵 [Dasani]: Task: '" + taskNumber + ". " + tasks[taskNumber - 1] + "' is " + status + ". " + emoji);
+        System.out.println(" 🔵 [Dasani]: Task: '" + taskNumber + ". " + tasks.get(taskNumber - 1) + "' is " + status + ". " + emoji);
         Dasani.printLine();
     }
 }

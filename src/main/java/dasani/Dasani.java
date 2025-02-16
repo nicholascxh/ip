@@ -86,6 +86,14 @@ public class Dasani {
                 }
                 break;
 
+            case "delete":
+                try {
+                    taskManager.deleteTask(description);
+                } catch (DasaniException e) {
+                    System.out.println(e.getMessage());
+                }
+                break;
+
             default:
                 System.out.println(" 🔵 [Dasani]: Invalid command. Type \"help\" to see the list of commands.");
                 break;
