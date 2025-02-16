@@ -86,6 +86,11 @@ public class Dasani {
                 }
                 break;
 
+            case "save":
+                taskManager.saveTasks();
+                System.out.println(" 🔵 [Dasani]: Task list saved! ✅");
+                break;
+
             case "delete":
                 try {
                     taskManager.deleteTask(description);
