@@ -1,7 +1,11 @@
-todo borrow book
-deadline return book /by Sunday
-event project meeting /from Mon 2pm /to 4pm
+todo buy milk
+deadline submit report /by Monday
+event team meeting /from Wed 10am /to 12pm
 list
-mark 1
-unmark 1
+mark 2
+unmark 2
+delete 1
+list
+delete 5
+mark abc
 bye

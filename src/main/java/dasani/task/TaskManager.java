@@ -26,29 +26,29 @@ public class TaskManager {
     public void addTask(Task task) {
         tasks.add(task);
         Dasani.printLine();
-        System.out.println(" 🔵 [Dasani]: Added: \"" + task + "\" 💬");
+        System.out.println("[Dasani]: Added: \"" + task + "\"");
         Dasani.printLine();
     }
 
     public void deleteTask(String command) throws DasaniException {
         try {
             if (command.isEmpty()) {
-                throw new DasaniException(" 🔵 [Dasani]: Please provide a task number after 'delete' ❌");
+                throw new DasaniException("[Dasani]: Please provide a task number after 'delete'");
             }
 
             int taskNumber = Integer.parseInt(command);
 
             if (taskNumber <= 0 || taskNumber > tasks.size()) {
-                throw new DasaniException(" 🔵 [Dasani]: Task number needs to be between 1 and " + tasks.size() + " ❌");
+                throw new DasaniException("[Dasani]: Task number needs to be between 1 and " + tasks.size());
             }
 
             Task removedTask = tasks.remove(taskNumber - 1);
             Dasani.printLine();
-            System.out.println(" 🔵 [Dasani]: Deleted: \"" + removedTask + "\" 💬");
+            System.out.println("[Dasani]: Deleted: \"" + removedTask + "\"");
             Dasani.printLine();
 
         } catch (NumberFormatException e) {
-            System.out.println(" 🔵 [Dasani]: Please enter a valid task number ❌");
+            System.out.println("[Dasani]: Please enter a valid task number");
         }
 
 
@@ -57,9 +57,9 @@ public class TaskManager {
     public void displayTasks() {
         Dasani.printLine();
         if (tasks.isEmpty()) {
-            System.out.println(" 🔵 [Dasani]: Your task list is empty. Add some task! ❌");
+            System.out.println("[Dasani]: Your task list is empty. Add some task!");
         } else {
-            System.out.println(" 🔵 [Dasani]: The list is:");
+            System.out.println("[Dasani]: The list is:");
             for (int i = 0; i < tasks.size(); i++) {
                 System.out.println((i + 1) + ". " + tasks.get(i));
             }
@@ -70,40 +70,40 @@ public class TaskManager {
     public void markTask(String command, boolean markAsDone) throws DasaniException {
         try {
             if (command.isEmpty()) {
-                throw new DasaniException(" 🔵 [Dasani]: Please provide a task number after 'mark' ❌");
+                throw new DasaniException("[Dasani]: Please provide a task number after 'mark'");
             }
 
             int taskNumber = Integer.parseInt(command);
 
             if (taskNumber <= 0 || taskNumber > tasks.size()) {
-                throw new DasaniException(" 🔵 [Dasani]: Task number needs to be between 1 and " + tasks.size() + " ❌");
+                throw new DasaniException("[Dasani]: Task number needs to be between 1 and " + tasks.size());
             }
 
             if (markAsDone) {
                 if (tasks.get(taskNumber - 1).isDone()) {
-                    displayTaskStatus(taskNumber, "already done", "✅");
+                    displayTaskStatus(taskNumber, "already done");
                 } else {
                     tasks.get(taskNumber - 1).markAsDone();
                     saveTasks();
-                    displayTaskStatus(taskNumber, "marked as done", "✅");
+                    displayTaskStatus(taskNumber, "marked as done");
                 }
             } else {
                 if (!tasks.get(taskNumber - 1).isDone()) {
-                    displayTaskStatus(taskNumber, "already not done", "🔄");
+                    displayTaskStatus(taskNumber, "already not done");
                 } else {
                     tasks.get(taskNumber - 1).markAsNotDone();
                     saveTasks();
-                    displayTaskStatus(taskNumber, "marked as not done", "🔄");
+                    displayTaskStatus(taskNumber, "marked as not done");
                 }
             }
         } catch (NumberFormatException e) {
-            System.out.println(" 🔵 [Dasani]: Please enter a valid task number ❌");
+            System.out.println("[Dasani]: Please enter a valid task number");
         }
     }
 
-    private void displayTaskStatus(int taskNumber, String status, String emoji) {
+    private void displayTaskStatus(int taskNumber, String status) {
         Dasani.printLine();
-        System.out.println(" 🔵 [Dasani]: Task: '" + taskNumber + ". " + tasks.get(taskNumber - 1) + "' is " + status + ". " + emoji);
+        System.out.println("[Dasani]: Task: '" + taskNumber + ". " + tasks.get(taskNumber - 1) + "' is " + status + ".");
         Dasani.printLine();
     }
 
@@ -118,7 +118,7 @@ public class TaskManager {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println(" 🔵 [Dasani]: Error saving tasks ❌");
+            System.out.println("[Dasani]: Error saving tasks");
         }
     }
 
@@ -142,7 +142,7 @@ public class TaskManager {
     public void loadTasks() {
         File file = new File(FILE_PATH);
         if (!file.exists()) {
-            System.out.println(" 🔵 [Dasani]: No previous tasks found. Starting fresh! ✅");
+            System.out.println("[Dasani]: No previous tasks found. Starting fresh!");
             return; // No file exists, so no tasks to load
         }
 
@@ -152,9 +152,9 @@ public class TaskManager {
                 parseTaskFromFile(scanner.nextLine());
             }
             scanner.close();
-            System.out.println(" 🔵 [Dasani]: Successfully loaded tasks from storage. ✅");
+            System.out.println("[Dasani]: Successfully loaded tasks from storage.");
         } catch (IOException e) {
-            System.out.println(" 🔵 [Dasani]: Error loading tasks ❌");
+            System.out.println("[Dasani]: Error loading tasks");
         }
     }
 

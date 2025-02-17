@@ -1,10 +1,39 @@
- 🔵 [Dasani]: Added: "[T][ ] borrow book" 💬
- 🔵 [Dasani]: Added: "[D][ ] return book (by: Sunday)" 💬
- 🔵 [Dasani]: Added: "[E][ ] project meeting (from: Mon 2pm to: 4pm)" 💬
- 🔵 [Dasani]: The list is:
- 1. [T][ ] borrow book
- 2. [D][ ] return book (by: Sunday)
- 3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
- 🔵 [Dasani]: Task: '1. [T][X] borrow book' is marked as done. ✅
- 🔵 [Dasani]: Task: '1. [T][ ] borrow book' is marked as not done. 🔄
- 🔵 [Dasani]: Bye! Hope to see you again soon! 🌈
+=========================================================
+Hello! I'm Dasani, your personal assistant.
+    What can I do for you today?
+=========================================================
+[Dasani]: No previous tasks found. Starting fresh!
+ You: =========================================================
+[Dasani]: Added: "[T][ ] buy milk"
+=========================================================
+ You: =========================================================
+[Dasani]: Added: "[D][ ] submit report (by: Monday)"
+=========================================================
+ You: =========================================================
+[Dasani]: Added: "[E][ ] team meeting (from: Wed 10am to: 12pm)"
+=========================================================
+ You: =========================================================
+[Dasani]: The list is:
+1. [T][ ] buy milk
+2. [D][ ] submit report (by: Monday)
+3. [E][ ] team meeting (from: Wed 10am to: 12pm)
+=========================================================
+ You: =========================================================
+[Dasani]: Task: '2. [D][X] submit report (by: Monday)' is marked as done.
+=========================================================
+ You: =========================================================
+[Dasani]: Task: '2. [D][ ] submit report (by: Monday)' is marked as not done.
+=========================================================
+ You: =========================================================
+[Dasani]: Deleted: "[T][ ] buy milk"
+=========================================================
+ You: =========================================================
+[Dasani]: The list is:
+1. [D][ ] submit report (by: Monday)
+2. [E][ ] team meeting (from: Wed 10am to: 12pm)
+=========================================================
+ You: [Dasani]: Task number needs to be between 1 and 2
+ You: [Dasani]: Please enter a valid task number
+ You: =========================================================
+[Dasani]: Bye! Hope to see you again soon!
+=========================================================
