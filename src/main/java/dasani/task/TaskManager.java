@@ -25,6 +25,7 @@ public class TaskManager {
     }
     public void addTask(Task task) {
         tasks.add(task);
+        saveTasks();
         Dasani.printLine();
         System.out.println("[Dasani]: Added: \"" + task + "\"");
         Dasani.printLine();
@@ -43,6 +44,7 @@ public class TaskManager {
             }
 
             Task removedTask = tasks.remove(taskNumber - 1);
+            saveTasks();
             Dasani.printLine();
             System.out.println("[Dasani]: Deleted: \"" + removedTask + "\"");
             Dasani.printLine();
