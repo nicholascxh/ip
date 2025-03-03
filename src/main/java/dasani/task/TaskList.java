@@ -9,29 +9,57 @@ import dasani.util.Ui;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Manages a list of tasks, including adding, deleting, marking, and searching tasks.
+ */
 public class TaskList {
     private final List<Task> tasks;
     private final Ui ui;
 
+    /**
+     * Constructs an empty TaskList.
+     */
     public TaskList() {
         this.tasks = new ArrayList<>();
         this.ui = new Ui();
     }
 
+    /**
+     * Constructs a TaskList with pre-loaded tasks.
+     *
+     * @param loadedTasks List of tasks loaded from storage.
+     */
     public TaskList(List<Task> loadedTasks) {
         this.tasks = new ArrayList<>(loadedTasks);
         this.ui = new Ui();
     }
 
+    /**
+     * Retrieves the list of tasks.
+     *
+     * @return List of tasks.
+     */
     public List<Task> getTasks() {
         return tasks;
     }
 
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task The task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
         System.out.println("[Dasani]: Added: \"" + task + "\"");
     }
 
+    /**
+     * Adds a task based on user input.
+     *
+     * @param type Type of task (todo, deadline, event).
+     * @param description Description of the task.
+     * @throws DasaniException If the input format is incorrect.
+     */
     public void addTaskFromCommand(String type, String description) throws DasaniException {
         if (description.isEmpty()) {
             throw new DasaniException("[Dasani]: Task description cannot be empty.");
@@ -61,6 +89,12 @@ public class TaskList {
         }
     }
 
+    /**
+     * Deletes a task based on its task number.
+     *
+     * @param description The task number as a string.
+     * @throws DasaniException If the task number is invalid.
+     */
     public void deleteTask(String description) throws DasaniException {
         if (description.isEmpty()) {
             throw new DasaniException("[Dasani]: Please provide a task number after 'delete'");
@@ -81,6 +115,13 @@ public class TaskList {
         System.out.println("[Dasani]: Deleted: \"" + removedTask + "\"");
     }
 
+    /**
+     * Marks or unmarks a task as done.
+     *
+     * @param description The task number as a string.
+     * @param markAsDone True to mark, false to unmark.
+     * @throws DasaniException If the task number is invalid.
+     */
     public void markTask(String description, boolean markAsDone) throws DasaniException {
         if (description.isEmpty()) {
             throw new DasaniException("[Dasani]: Please provide a task number after 'mark'.");
@@ -135,7 +176,11 @@ public class TaskList {
             }
         }
     }
-
+  
+    /**
+     * Displays all tasks in the list.
+     */
+  
     public void displayTasks() {
         if (tasks.isEmpty()) {
             System.out.println("[Dasani]: Your task list is empty. Add some tasks!");
