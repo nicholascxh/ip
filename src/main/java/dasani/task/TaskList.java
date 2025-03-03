@@ -115,6 +115,27 @@ public class TaskList {
         }
     }
 
+    /**
+     * Searches for tasks containing the given keyword and prints matching results.
+     * @param keyword The keyword to search for.
+     */
+    public void findTasks(String keyword) {
+        List<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().toLowerCase().contains(keyword.toLowerCase())) {
+                matchingTasks.add(task);
+            }
+        }
+        if (matchingTasks.isEmpty()) {
+            System.out.println("[Dasani]: No matching tasks found.");
+        } else {
+            System.out.println("[Dasani]: Here are the matching tasks in your list:");
+            for (int i = 0; i < matchingTasks.size(); i++) {
+                System.out.println((i + 1) + ". " + matchingTasks.get(i));
+            }
+        }
+    }
+
     public void displayTasks() {
         if (tasks.isEmpty()) {
             System.out.println("[Dasani]: Your task list is empty. Add some tasks!");

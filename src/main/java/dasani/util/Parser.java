@@ -28,6 +28,8 @@ public class Parser {
             return new AddCommand("event", description);
         case "delete":
             return new DeleteCommand(description);
+        case "find":
+            return new FindCommand(description);
         case "save":
             return new SaveCommand();
         default:
