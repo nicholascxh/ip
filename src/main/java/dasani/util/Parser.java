@@ -2,8 +2,18 @@ package dasani.util;
 
 import dasani.command.*;
 import dasani.exception.DasaniException;
+import dasani.exception.InvalidDateException;
 
+/**
+ * Parses user input into corresponding commands.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     * @param userInput The full user command as a string.
+     * @return The corresponding Command object.
+     * @throws DasaniException If the command is invalid.
+     */
     public static Command parse(String userInput) throws DasaniException {
         String[] words = userInput.split(" ", 2);
         String keyword = words[0].toLowerCase();
@@ -23,9 +33,9 @@ public class Parser {
         case "todo":
             return new AddCommand("todo", description);
         case "deadline":
-            return new AddCommand("deadline", description);
+            return parseDeadline(description);
         case "event":
-            return new AddCommand("event", description);
+            return parseEvent(description);
         case "delete":
             return new DeleteCommand(description);
         case "save":
@@ -34,4 +44,21 @@ public class Parser {
             throw new DasaniException("Invalid command. Type 'help' to see the list of commands.");
         }
     }
+
+    private static AddCommand parseDeadline(String description) throws DasaniException {
+        String[] splitDeadline = description.split("/by", 2);
+        if (splitDeadline.length < 2) {
+            throw new DasaniException("Invalid deadline format. Use: deadline <task> /by yyyy-MM-dd HHmm");
+        }
+        return new AddCommand("deadline", splitDeadline[0].trim() + " /by " + splitDeadline[1].trim());
+    }
+
+    private static AddCommand parseEvent(String description) throws DasaniException {
+        String[] splitEvent = description.split("/from", 2);
+        if (splitEvent.length < 2 || !splitEvent[1].contains("/to")) {
+            throw new DasaniException("Invalid event format. Use: event <task> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
+        }
+        return new AddCommand("event", description);
+    }
+
 }
