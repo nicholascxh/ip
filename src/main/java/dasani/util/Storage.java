@@ -6,13 +6,19 @@ import dasani.task.type.Deadline;
 import dasani.task.type.Event;
 import dasani.task.type.Todo;
 import dasani.exception.DasaniException;
+import dasani.exception.InvalidDateException;
 
 import java.io.*;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Handles file operations for saving and loading tasks.
+ */
 public class Storage {
     private String filePath;
+    private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     public Storage(String filePath) {
         this.filePath = filePath;
@@ -27,7 +33,10 @@ public class Storage {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                tasks.add(parseTask(line));
+                Task task = parseTask(line);
+                if (task != null) {
+                    tasks.add(task);
+                }
             }
         } catch (IOException e) {
             throw new DasaniException("Error loading tasks from file.");
@@ -52,19 +61,25 @@ public class Storage {
         String description = parts[2];
         Task task;
 
-        switch (type) {
-        case "T":
-            task = new Todo(description);
-            break;
-        case "D":
-            task = new Deadline(description, parts[3]);
-            break;
-        case "E":
-            task = new Event(description, parts[3], parts[4]);
-            break;
-        default:
+        try {
+            switch (type) {
+            case "T":
+                task = new Todo(description);
+                break;
+            case "D":
+                task = new Deadline(description, parts[3]);
+                break;
+            case "E":
+                task = new Event(description, parts[3], parts[4]);
+                break;
+            default:
+                return null;
+            }
+        } catch (InvalidDateException e) {
+            System.out.println("[Dasani]: Skipping task due to invalid date format: " + line);
             return null;
         }
+
         if (isDone) task.markAsDone();
         return task;
     }
@@ -75,9 +90,11 @@ public class Storage {
         String description = task.getDescription();
 
         if (task instanceof Deadline) {
-            return type + " | " + status + " | " + description + " | " + ((Deadline) task).getBy();
+            return type + " | " + status + " | " + description + " | " + ((Deadline) task).getBy().format(SAVE_FORMAT);
         } else if (task instanceof Event) {
-            return type + " | " + status + " | " + description + " | " + ((Event) task).getFrom() + " | " + ((Event) task).getTo();
+            return type + " | " + status + " | " + description + " | "
+                    + ((Event) task).getFrom().format(SAVE_FORMAT) + " | "
+                    + ((Event) task).getTo().format(SAVE_FORMAT);
         } else {
             return type + " | " + status + " | " + description;
         }
