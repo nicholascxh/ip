@@ -16,7 +16,7 @@ public class HelpCommand extends Command {
         System.out.println("\"unmark <task number>\" - Unmark a task.");
         System.out.println("\"delete <task number>\" - Delete a task.");
         System.out.println("\"save\" - Save all current tasks.");
-        System.out.println("\"help\" - Show this help message.");
+        System.out.println("\"find\" - Find all tasks with specified keyword.");
         System.out.println("\"bye\" - Exit the program.");
     }
 }

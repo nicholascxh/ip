@@ -3,7 +3,17 @@ package dasani.util;
 import dasani.command.*;
 import dasani.exception.DasaniException;
 
+/**
+ * The Parser class handles user input parsing and converts commands into executable objects.
+ */
 public class Parser {
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param userInput The full user command as a string.
+     * @return The corresponding Command object.
+     * @throws DasaniException If the command is invalid or unrecognized.
+     */
     public static Command parse(String userInput) throws DasaniException {
         String[] words = userInput.split(" ", 2);
         String keyword = words[0].toLowerCase();
