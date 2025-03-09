@@ -34,7 +34,31 @@ Welcome to **Dasani**, your personal task management assistant! Dasani helps you
 
 ### 2. Running Dasani
 1. Download and run the Dasani program.
-2. The welcome message from Dasani will appear.
+2. You should see this image generated:
+
+                                              .......                                               
+                                             :::::::...                                             
+                                             ::--::::..                                             
+                                             ++++==--+=                                             
+                                             =-:.....-+                                             
+                                         +::.............:+                                         
+                                        +-:..............::=                                        
+                                       +-:.................-=                                       
+                                      ++-:::............::::=+                                      
+                                       %#%**#=*%=##=+#*-#%##%                                       
+                                       %#%#+=:-++**-.+*#=###%                                       
+                                       %%#*++-+==*=-=++=+*#%%                                       
+                                       %%#*===:-=+++-::=++#%%                                       
+                                       %%##**+++=====++**##%%                                       
+                                       %%%++***##++**#****%%%                                       
+                                       *+++++***########*****                                       
+                                       #-:.................:*                                       
+                                      ++-:::.............:--++                                      
+                                      +:::.........  .......:=                                      
+                                      =--:.......::.......::-+                                      
+                                       *%*:......**......:*%+                                       
+                                           --::::   ::::-                                           
+
 3. Start entering commands to interact with Dasani!
 
 ### 3. Exiting Dasani

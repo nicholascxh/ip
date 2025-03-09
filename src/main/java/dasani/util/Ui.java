@@ -21,6 +21,31 @@ public class Ui {
      */
     public void showWelcome() {
         showLine();
+        // Water droplet ASCII Art
+        System.out.println("                                                                                                    ");
+        System.out.println("                                              .......                                               ");
+        System.out.println("                                             :::::::...                                             ");
+        System.out.println("                                             ::--::::..                                             ");
+        System.out.println("                                             ++++==--+=                                             ");
+        System.out.println("                                             =-:.....-+                                             ");
+        System.out.println("                                         +::.............:+                                         ");
+        System.out.println("                                        +-:..............::=                                        ");
+        System.out.println("                                       +-:.................-=                                       ");
+        System.out.println("                                      ++-:::............::::=+                                      ");
+        System.out.println("                                       %#%**#=*%=##=+#*-#%##%                                       ");
+        System.out.println("                                       %#%#+=:-++**-.+*#=###%                                       ");
+        System.out.println("                                       %%#*++-+==*=-=++=+*#%%                                       ");
+        System.out.println("                                       %%#*===:-=+++-::=++#%%                                       ");
+        System.out.println("                                       %%##**+++=====++**##%%                                       ");
+        System.out.println("                                       %%%++***##++**#****%%%                                       ");
+        System.out.println("                                       *+++++***########*****                                       ");
+        System.out.println("                                       #-:.................:*                                       ");
+        System.out.println("                                      ++-:::.............:--++                                      ");
+        System.out.println("                                      +:::.........  .......:=                                      ");
+        System.out.println("                                      =--:.......::.......::-+                                      ");
+        System.out.println("                                       *%*:......**......:*%+                                       ");
+        System.out.println("                                           --::::   ::::-                                           ");
+        System.out.println("                                                                                                    ");
         System.out.println("Hello! I'm Dasani, your personal assistant.");
         System.out.println("What can I do for you today?");
         showLine();
