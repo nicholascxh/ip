@@ -1,10 +1,9 @@
 package dasani;
 
 import dasani.exception.DasaniException;
-import dasani.task.TaskList;
+import dasani.task.TaskManager;
 import dasani.util.storage.*;
 import dasani.util.*;
-
 import dasani.command.Command;
 
 /**
@@ -13,7 +12,7 @@ import dasani.command.Command;
  */
 public class Dasani {
     private TaskStorage taskStorage;
-    private TaskList tasks;
+    private TaskManager taskManager; // Updated to use TaskManager instead of TaskList
     private Ui ui;
 
     /**
@@ -26,13 +25,16 @@ public class Dasani {
         taskStorage = new TaskStorage(storageManager); // Loads and saves tasks
 
         try {
-            tasks = new TaskList(taskStorage.load());
+            taskManager = new TaskManager(taskStorage.load()); // TaskManager now manages tasks
         } catch (DasaniException e) {
             ui.showLoadingError();
-            tasks = new TaskList();
+            taskManager = new TaskManager();
         }
     }
 
+    /**
+     * Runs the chatbot, processing user commands in a loop until exit command is given.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -41,7 +43,7 @@ public class Dasani {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, taskStorage);
+                c.execute(taskManager, ui, taskStorage); // Pass taskManager instead of TaskList
                 isExit = c.isExit();
             } catch (DasaniException e) {
                 ui.showError(e.getMessage());
@@ -51,6 +53,11 @@ public class Dasani {
         }
     }
 
+    /**
+     * The main entry point of the program.
+     *
+     * @param args Command line arguments (not used in this implementation).
+     */
     public static void main(String[] args) {
         new Dasani().run();
     }

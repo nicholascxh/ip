@@ -1,6 +1,6 @@
 package dasani.command;
 
-import dasani.task.TaskList;
+import dasani.task.TaskManager;
 import dasani.util.Ui;
 import dasani.util.storage.TaskStorage;
 import dasani.exception.DasaniException;
@@ -16,8 +16,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, TaskStorage taskStorage) throws DasaniException {
-        tasks.deleteTask(description);
-        taskStorage.save(tasks);
+    public void execute(TaskManager taskManager, Ui ui, TaskStorage taskStorage) throws DasaniException {
+        taskManager.deleteTask(description);
+        taskStorage.save(taskManager.getTaskList());
     }
 }

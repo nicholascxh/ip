@@ -1,6 +1,6 @@
 package dasani.command;
 
-import dasani.task.TaskList;
+import dasani.task.TaskManager;
 import dasani.util.Ui;
 import dasani.util.storage.TaskStorage;
 
@@ -9,7 +9,7 @@ import dasani.util.storage.TaskStorage;
  */
 public class HelpCommand extends Command {
     @Override
-    public void execute(TaskList tasks, Ui ui, TaskStorage taskStorage) {
+    public void execute(TaskManager taskManager, Ui ui, TaskStorage taskStorage) {
         System.out.println("[Dasani]: Here are the available commands:");
         System.out.println("\"list\" - List all current tasks.");
         System.out.println("\"todo <task>\" - Add a todo task.");

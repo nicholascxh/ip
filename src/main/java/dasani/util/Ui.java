@@ -83,4 +83,13 @@ public class Ui {
     public void showLoadingError() {
         System.out.println("[Dasani]: Error loading tasks from file.");
     }
+
+    /**
+     * Displays a general message.
+     *
+     * @param message The message to be displayed.
+     */
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
 }

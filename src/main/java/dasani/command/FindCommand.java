@@ -1,6 +1,6 @@
 package dasani.command;
 
-import dasani.task.TaskList;
+import dasani.task.TaskManager;
 import dasani.util.Ui;
 import dasani.util.storage.TaskStorage;
 
@@ -19,7 +19,7 @@ public class FindCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, TaskStorage taskStorage) {
-        tasks.findTasks(keyword);
+    public void execute(TaskManager taskManager, Ui ui, TaskStorage taskStorage) {
+        taskManager.findTasks(keyword);
     }
 }
