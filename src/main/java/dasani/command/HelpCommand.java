@@ -4,6 +4,10 @@ import dasani.task.TaskList;
 import dasani.util.Storage;
 import dasani.util.Ui;
 
+/**
+ * List and explain all available commands.
+ */
+
 public class HelpCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

@@ -17,9 +17,10 @@ public class Event extends Task {
 
     /**
      * Constructs an Event task with a description, start time, and end time.
+     *
      * @param description Description of the event.
-     * @param from Start time in yyyy-MM-dd HHmm format.
-     * @param to End time in yyyy-MM-dd HHmm format.
+     * @param from        Start time in yyyy-MM-dd HHmm format.
+     * @param to          End time in yyyy-MM-dd HHmm format.
      * @throws InvalidDateException If the date format is incorrect.
      */
     public Event(String description, String from, String to) throws InvalidDateException {
@@ -28,6 +29,13 @@ public class Event extends Task {
         this.to = parseDateTime(to);
     }
 
+    /**
+     * Parses a date-time string into a {@code LocalDateTime} object.
+     *
+     * @param dateTime The date-time string in yyyy-MM-dd HHmm format.
+     * @return The parsed {@code LocalDateTime} object.
+     * @throws InvalidDateException If the date format is invalid.
+     */
     private LocalDateTime parseDateTime(String dateTime) throws InvalidDateException {
         try {
             return LocalDateTime.parse(dateTime.trim(), INPUT_FORMAT);
@@ -36,17 +44,32 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * Returns the start time of the event.
+     *
+     * @return The start time as a {@code LocalDateTime} object.
+     */
     public LocalDateTime getFrom() {
         return from;
     }
 
+    /**
+     * Returns the end time of the event.
+     *
+     * @return The end time as a {@code LocalDateTime} object.
+     */
     public LocalDateTime getTo() {
         return to;
     }
 
+    /**
+     * Returns a string representation of the event task.
+     *
+     * @return A formatted string representing the event task.
+     */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a"))
-                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM dd yyyy, h:mm a")) + ")";
+        return "[E]" + super.toString() + " (from: " + from.format(OUTPUT_FORMAT)
+                + " to: " + to.format(OUTPUT_FORMAT) + ")";
     }
 }

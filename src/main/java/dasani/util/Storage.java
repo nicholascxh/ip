@@ -20,10 +20,21 @@ public class Storage {
     private String filePath;
     private static final DateTimeFormatter SAVE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws DasaniException If there is an error reading the file.
+     */
     public List<Task> load() throws DasaniException {
         File file = new File(filePath);
         List<Task> tasks = new ArrayList<>();
@@ -44,6 +55,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current task list to the specified file.
+     *
+     * @param taskList The task list to be saved.
+     */
     public void save(TaskList taskList) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath))) {
             for (Task task : taskList.getTasks()) {
@@ -54,6 +70,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Parses a task from a formatted string.
+     *
+     * @param line The string representation of the task from the file.
+     * @return The parsed Task object, or null if the format is invalid.
+     */
     private Task parseTask(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
@@ -84,6 +106,12 @@ public class Storage {
         return task;
     }
 
+    /**
+     * Converts a task into a formatted string for saving to a file.
+     *
+     * @param task The task to be formatted.
+     * @return A string representation of the task for file storage.
+     */
     private String taskToFileFormat(Task task) {
         String type = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
         String status = task.isDone() ? "1" : "0";

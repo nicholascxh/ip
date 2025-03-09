@@ -4,6 +4,10 @@ import dasani.task.TaskList;
 import dasani.util.Storage;
 import dasani.util.Ui;
 
+/**
+ * Handles exiting of Dasani chatbot.
+ */
+
 public class ExitCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) {

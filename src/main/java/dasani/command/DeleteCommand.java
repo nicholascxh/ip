@@ -5,6 +5,9 @@ import dasani.util.Storage;
 import dasani.util.Ui;
 import dasani.exception.DasaniException;
 
+/**
+ * Handles deleting tasks to the task list.
+ */
 public class DeleteCommand extends Command {
     private String description;
 

@@ -33,16 +33,10 @@ public class AddCommand extends Command {
             break;
         case "deadline":
             String[] deadlineParts = description.split(" /by ", 2);
-            if (deadlineParts.length < 2) {
-                throw new DasaniException("Invalid deadline format. Use: deadline <task> /by yyyy-MM-dd HHmm");
-            }
             tasks.addTask(new Deadline(deadlineParts[0].trim(), deadlineParts[1].trim()));
             break;
         case "event":
             String[] eventParts = description.split(" /from | /to ", 3);
-            if (eventParts.length < 3) {
-                throw new DasaniException("Invalid event format. Use: event <task> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm");
-            }
             tasks.addTask(new Event(eventParts[0].trim(), eventParts[1].trim(), eventParts[2].trim()));
             break;
         default:
