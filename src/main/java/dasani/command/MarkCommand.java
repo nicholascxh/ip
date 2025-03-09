@@ -1,8 +1,8 @@
 package dasani.command;
 
 import dasani.task.TaskList;
-import dasani.util.Storage;
 import dasani.util.Ui;
+import dasani.util.storage.TaskStorage;
 import dasani.exception.DasaniException;
 
 /**
@@ -27,14 +27,14 @@ public class MarkCommand extends Command {
      * Executes the command to mark or unmark a task.
      * Updates the storage after modifying the task list.
      *
-     * @param tasks   The task list that contains the tasks.
-     * @param ui      The user interface to interact with the user.
-     * @param storage The storage to save the updated task list.
+     * @param tasks       The task list that contains the tasks.
+     * @param ui          The user interface to interact with the user.
+     * @param taskStorage The storage to save the updated task list.
      * @throws DasaniException If an error occurs while marking the task.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DasaniException {
+    public void execute(TaskList tasks, Ui ui, TaskStorage taskStorage) throws DasaniException {
         tasks.markTask(description, isMark);
-        storage.save(tasks);
+        taskStorage.save(tasks);
     }
 }

@@ -1,12 +1,12 @@
 package dasani.command;
 
 import dasani.task.TaskList;
-import dasani.util.Storage;
 import dasani.util.Ui;
+import dasani.util.storage.TaskStorage;
 import dasani.exception.DasaniException;
 
 /**
- * Handles deleting tasks to the task list.
+ * Handles deleting tasks from the task list.
  */
 public class DeleteCommand extends Command {
     private String description;
@@ -16,8 +16,8 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws DasaniException {
+    public void execute(TaskList tasks, Ui ui, TaskStorage taskStorage) throws DasaniException {
         tasks.deleteTask(description);
-        storage.save(tasks);
+        taskStorage.save(tasks);
     }
 }

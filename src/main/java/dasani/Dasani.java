@@ -2,9 +2,9 @@ package dasani;
 
 import dasani.exception.DasaniException;
 import dasani.task.TaskList;
-import dasani.util.Parser;
-import dasani.util.Storage;
-import dasani.util.Ui;
+import dasani.util.storage.*;
+import dasani.util.*;
+
 import dasani.command.Command;
 
 /**
@@ -12,31 +12,27 @@ import dasani.command.Command;
  * Handles initialization, user interactions, and execution loop.
  */
 public class Dasani {
-
-    private Storage storage;
+    private TaskStorage taskStorage;
     private TaskList tasks;
     private Ui ui;
 
     /**
      * Constructs a Dasani instance.
-     * Initializes UI, storage, and loads tasks from the specified file.
-     *
-     * @param filePath The path to the file where tasks are stored.
+     * Initializes UI, storage, and loads tasks.
      */
-    public Dasani(String filePath) {
+    public Dasani() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        StorageManager storageManager = new StorageManager(); // Manages file setup
+        taskStorage = new TaskStorage(storageManager); // Loads and saves tasks
+
         try {
-            tasks = new TaskList(storage.load());
+            tasks = new TaskList(taskStorage.load());
         } catch (DasaniException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
     }
 
-    /**
-     * Runs the chatbot, processing user commands in a loop until exit command is given.
-     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -45,7 +41,7 @@ public class Dasani {
                 String fullCommand = ui.readCommand();
                 ui.showLine();
                 Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
+                c.execute(tasks, ui, taskStorage);
                 isExit = c.isExit();
             } catch (DasaniException e) {
                 ui.showError(e.getMessage());
@@ -55,12 +51,7 @@ public class Dasani {
         }
     }
 
-    /**
-     * The main entry point of the program.
-     *
-     * @param args Command line arguments (not used in this implementation).
-     */
     public static void main(String[] args) {
-        new Dasani("data/tasks.txt").run();
+        new Dasani().run();
     }
 }
